@@ -1,0 +1,7 @@
+{
+  "name": "otic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

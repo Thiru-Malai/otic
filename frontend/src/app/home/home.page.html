@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="welcome">
+    <ion-text class="welcome-text">Welcome!</ion-text>
+    <br />
+    <ion-text class="what-song">What song do you want to play?</ion-text>
+  </div>
+  <div class="search">
+    <ion-searchbar
+      [(ngModel)]="url"
+      placeholder="Search"
+      class="search-bar"
+      searchIcon="undefined"
+      show-clear-button="always"
+      value="focus"
+    ></ion-searchbar>
+    <ion-button class="search-button main" (click)="downloadAudio()">
+      <ion-icon slot="icon-only" name="search" color="secondary"></ion-icon>
+    </ion-button>
+  </div>
+  <div *ngIf="audios.length">
+    <div *ngFor="let audio of audios;">
+      <app-audio-card [audio]="audio"></app-audio-card>
+    </div>
+  </div>
+</ion-content>

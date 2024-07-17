@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  color: white;
+}
+
+.title {
+  flex: 1;
+}
+
+.song-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.song-author {
+  font-size: 1rem;
+  font-weight: 100;
+}
+
+.pause-btn {
+  width: 40px;
+  height: 40px;
+}

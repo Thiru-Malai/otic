@@ -1,0 +1,34 @@
+.welcome {
+  line-height: 2rem;
+}
+
+.welcome-text {
+  font-weight: 100;
+  font-size: medium;
+}
+
+.what-song {
+  font-weight: 600;
+  font-size: large;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+}
+
+ion-searchbar {
+  --background: #322f40;
+  --color: #5d5b68;
+  --placeholder-color: #5d5b68;
+  --icon-color: #fff;
+  --border-color: #160131;
+  --border-size: 1px;
+  --border-radius: 10px;
+  height: 40px;
+}

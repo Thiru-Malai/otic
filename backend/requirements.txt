@@ -1,0 +1,4 @@
+pytubefix==6.0.0
+flask
+pocketbase
+dotenv

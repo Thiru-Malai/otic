@@ -1,0 +1,29 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/Archivo-Variable.ttf");
+}
+
+:root {
+  --ion-color-primary: #65ffb7;
+  --ion-color-secondary: #1b182b;
+  --ion-background-color: #1b182b;
+  --ion-text-color: white;
+  --ion-padding: 10px;
+}
+
+* {
+  font-family: "Archivo";
+  font-weight: 400;
+}
+
+ion-card {
+  border-radius: 10px;
+  border: solid;
+}
+
+.main {
+  --border-radius: 10px;
+}

@@ -1,0 +1,7 @@
+build
+coverage
+android
+www
+node_modules
+.vscode
+.angular
