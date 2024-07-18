@@ -5,7 +5,8 @@ import shutil
 from flask import Flask, jsonify, request
 from pocketbase import PocketBase  # Client also works the same
 import base64
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv 
+from waitress import serve
 
 load_dotenv()
 
@@ -13,8 +14,6 @@ app = Flask(__name__)
 client = PocketBase('https://otic.pockethost.io/')
 
 admin_data = client.admins.auth_with_password(os.getenv('ADMIN_MAIL'), os.getenv('ADMIN_PASSWORD'))
-
-print(admin_data.is_valid)
 
 # Home Route
 @app.route('/', methods=['GET'])
@@ -95,4 +94,4 @@ def get_audio():
         return jsonify({'error': str(e)}), 400
     
 if __name__ == '__main__': 
-    app.run()
+    serve(app, host='0.0.0.0', port=5000)
