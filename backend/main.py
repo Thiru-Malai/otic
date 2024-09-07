@@ -7,11 +7,13 @@ from pocketbase import PocketBase  # Client also works the same
 import base64
 from dotenv import load_dotenv 
 from waitress import serve
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__) 
 client = PocketBase('https://otic.pockethost.io/')
+CORS(app)  # This will enable CORS for all routes and methods
 
 admin_data = client.admins.auth_with_password(os.getenv('ADMIN_MAIL'), os.getenv('ADMIN_PASSWORD'))
 
@@ -24,6 +26,8 @@ def home():
 @app.route('/download', methods=['POST'])
 def save():
     url = request.args.get('url')
+    response = jsonify({'url': url})
+    response.headers.add('Access-Control-Allow-Origin', 'https://localhost')
     if not url:
         return jsonify({'error': 'URL is required'}), 400
     
