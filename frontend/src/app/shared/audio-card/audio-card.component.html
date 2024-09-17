@@ -1,22 +1,20 @@
 <ion-card>
   <div class="header ion-padding">
     <div class="title">
-      <ion-text class="song-title">{{ audio.title }}</ion-text>
-      -
-      <ion-text class="song-author">{{ audio.author }}</ion-text>
+      <ion-text class="song-title">{{ audio.title | slice:0:60}}...</ion-text>
     </div>
-    <ion-button class="pause-btn main">
+    <ion-button class="pause-btn main" (click)="playAudio()" *ngIf="!playing">
       <ion-icon
         slot="icon-only"
         name="play"
         color="secondary"
-        *ngIf="!playing"
       ></ion-icon>
+    </ion-button>
+    <ion-button class="pause-btn main" (click)="pauseAudio()" *ngIf="playing">
       <ion-icon
         slot="icon-only"
         name="pause"
         color="secondary"
-        *ngIf="playing"
       ></ion-icon>
     </ion-button>
   </div>
