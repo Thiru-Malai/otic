@@ -27,7 +27,7 @@ def home():
 def save():
     url = request.args.get('url')
     response = jsonify({'url': url})
-    response.headers.add('Access-Control-Allow-Origin', 'https://localhost')
+    response.headers.add('Access-Control-Allow-Origin', '*')
     if not url:
         return jsonify({'error': 'URL is required'}), 400
     
@@ -98,4 +98,4 @@ def get_audio():
         return jsonify({'error': str(e)}), 400
     
 if __name__ == '__main__': 
-    serve(app, host='0.0.0.0', port=5000)
+    serve(app, host='0.0.0.0', port=5000, )
