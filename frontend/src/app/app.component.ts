@@ -1,9 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { SendIntent } from 'send-intent';
 import { SendIntentPlugin } from 'send-intent';
-import { DeepLinkService } from './services/deep-link.service';
+import { DeepLinkService } from './modules/deep-link.service';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { DownloadAudioService } from './services/download-audio.service';
+import { DownloadAudioService } from './modules/download-audio.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
         console.log(res);
         this.result = res;
 
-        this.audioService.downloadAudio(result.url);        
+        this.audioService.saveAudioToDB(result.url);        
 
         // this.deepLink.launchApp('com.thirumalai.otic');
         // SendIntent.finish();
