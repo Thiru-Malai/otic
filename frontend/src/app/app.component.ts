@@ -4,6 +4,7 @@ import { SendIntentPlugin } from 'send-intent';
 import { DeepLinkService } from './modules/deep-link.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { DownloadAudioService } from './modules/download-audio.service';
+import { DatabaseService } from './modules/database.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,10 +16,14 @@ export class AppComponent implements OnInit {
   constructor(
     private zone: NgZone,
     private deepLink: DeepLinkService,
-    private audioService: DownloadAudioService
+    private audioService: DownloadAudioService,
+    private dbService: DatabaseService
   ) {}
 
-  ngOnInit() {
+
+  async ngOnInit() {
+    await this.dbService.initializeDB();
+
     this.checkIntent();
 
     setTimeout(() => {
