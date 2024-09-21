@@ -14,6 +14,14 @@ export class AudioControlService {
   _isPlaying: Subject<any> = new Subject<any>();
   constructor() { }
 
+  private audioFinished(){
+    this.audioPlayer?.addEventListener("ended", ()=>{
+      console.log('Ended')
+      this.audioPlayer!.currentTime = 0;
+      this._isPlaying.next({id: null, state: 'pause'});
+    })
+  }
+
   private async audioExistsInLocal(audio: AUDIO): Promise<Boolean>{
     const fileStat: any = await Filesystem.stat({
       path: audio.id,
@@ -41,6 +49,14 @@ export class AudioControlService {
   }
 
   async playAudio(audio: AUDIO){
+
+    const isAudioPlaying = this.isPlaying()
+
+    if(isAudioPlaying){
+      this.pauseAudio(audio);
+      this.audioPlayer = undefined;
+    }
+
     this.audioExistsInLocal(audio)
     .then((audioExists) => {
       console.log(audioExists)
@@ -51,26 +67,28 @@ export class AudioControlService {
         console.log(audioExists)
         return this.createAudioInLocal(audio)
       }
-      return Promise.resolve(true);
+      return Promise.resolve(false);  // audio already exists
     })
-    .then(async (result) => {
-      if(result){
-        console.log(result)
+    .then(async (audioFileCreated) => {
+      if(audioFileCreated){
+        console.log("Playing new audio: ", audioFileCreated)
         this.audioPlayer = new Audio(window.Ionic.WebView.convertFileSrc(this.audioFile.uri));
         await this.audioPlayer.play();
-        this._isPlaying.next({id: audio.id, state: 'play'})
+        this.audioFinished();
       }
+      else{
+        console.log("Playing existing audio: ", audioFileCreated)
+        await this.audioPlayer?.play();
+      }
+      this._isPlaying.next({id: audio.id, state: 'play'})
     })
     .catch((err) => {
       console.log(err)
     })
-    // const audioExists = await this.audioExistsInLocal(audio);
-    // if(!audioExists){
-    //   this.createAudioInLocal(audio).then(async (result)=>{
-    //       this.audioPlayer = new Audio(window.Ionic.WebView.convertFileSrc(this.audioFile.uri));
-    //       await this.audioPlayer.play();
-    //   })
-    // }
+  }
+
+  private isPlaying(){
+    return !this.audioPlayer?.paused;
   }
 
   pauseAudio(audio: AUDIO){
