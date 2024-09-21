@@ -53,7 +53,7 @@ export class AudioControlService {
     const isAudioPlaying = this.isPlaying()
 
     if(isAudioPlaying){
-      this.pauseAudio(audio);
+      this.pauseAudio(audio.id);
       this.audioPlayer = undefined;
     }
 
@@ -91,8 +91,8 @@ export class AudioControlService {
     return !this.audioPlayer?.paused;
   }
 
-  pauseAudio(audio: AUDIO){
+  pauseAudio(id: string){
     this.audioPlayer?.pause();
-    this._isPlaying.next({id: audio.id, state: 'pause'})
+    this._isPlaying.next({id: id, state: 'pause'})
   }
 }

@@ -34,7 +34,7 @@ export class AudioCardComponent {
   }
 
   pauseAudio(){
-    this.audioControlService.pauseAudio(this.audio);
+    this.audioControlService.pauseAudio(this.audio.id);
   }
 
   async controlAudio1(){
