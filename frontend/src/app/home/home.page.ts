@@ -1,17 +1,22 @@
 import { Component, effect } from '@angular/core';
 import { DownloadAudioService } from '../modules/download-audio.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, IonicModule } from '@ionic/angular';
 import { AUDIO } from '../modals/audio';
 import { DatabaseService } from '../modules/database.service';
+import { AudioCardComponent } from '../shared/audio-card/audio-card.component';
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss'],
+    standalone: true,
+    imports: [IonicModule, FormsModule, NgIf, NgFor, AudioCardComponent]
 })
 export class HomePage {
   url: string = 'https://youtu.be/FAyKDaXEAgc?si=GhSsrTPzyJlr58Az';
-  audios: AUDIO[] = this.dbService.getAudios();
+  audios = this.dbService.getAudios();
   loading: any;
 
   constructor(
@@ -21,7 +26,7 @@ export class HomePage {
     private dbService: DatabaseService
   ) {
     effect(() => {
-      console.log('AUDIO ADDED', this.audios)
+      console.log('AUDIO ADDED', this.audios())
     })
     console.log(this.audios)
   }
@@ -48,7 +53,7 @@ export class HomePage {
   async getAudioFromDB(id: string) {
     const audio = await this.audioService.getAudioFromDB(id)
     console.log(audio);
-    this.audios.push(audio);
+    // this.audios.push(audio);
     this.dbService.addAudio(audio);
     this.loading.dismiss();
   }

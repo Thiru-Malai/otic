@@ -5,10 +5,13 @@ import { DeepLinkService } from './modules/deep-link.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { DownloadAudioService } from './modules/download-audio.service';
 import { DatabaseService } from './modules/database.service';
+import { IonicModule } from '@ionic/angular';
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
+    standalone: true,
+    imports: [IonicModule],
 })
 export class AppComponent implements OnInit {
   result: string = '';
